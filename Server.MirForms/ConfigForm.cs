@@ -1,6 +1,7 @@
-﻿using Server.MirEnvir;
+using Server.MirEnvir;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace Server
 {
@@ -13,6 +14,9 @@ namespace Server
             VPathTextBox.Text = Settings.VersionPath;
             VersionCheckBox.Checked = Settings.CheckVersion;
             RelogDelayTextBox.Text = Settings.RelogDelay.ToString();
+            
+            // 初始化语言下拉框
+            InitializeLanguageComboBox();
 
             IPAddressTextBox.Text = Settings.IPAddress;
             PortTextBox.Text = Settings.Port.ToString();
@@ -50,6 +54,10 @@ namespace Server
             tbRestedBuffLength.Text = Settings.RestedBuffLength.ToString();
             tbRestedExpBonus.Text = Settings.RestedExpBonus.ToString();
             tbMaxRestedBonus.Text = Settings.RestedMaxBonus.ToString();
+            
+            // 加载并应用UI语言
+            UILanguageManager.LoadUILanguage(Settings.LanguageFilePath);
+            UILanguageManager.ApplyUILanguage(this);
         }
 
         private void ConfigForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -124,6 +132,25 @@ namespace Server
             Settings.RestedBuffLength = Convert.ToInt32(tbRestedBuffLength.Text);
             Settings.RestedExpBonus = Convert.ToInt32(tbRestedExpBonus.Text);
             Settings.RestedMaxBonus = Convert.ToInt32(tbMaxRestedBonus.Text);
+            
+            // 保存语言设置
+            string languageFile;
+            switch (LanguageComboBox.SelectedIndex)
+            {
+                case 1: // 中文
+                    languageFile = "Language.zh-CN.ini";
+                    break;
+                case 2: // 俄语
+                    languageFile = "Language.ru-RU.ini";
+                    break;
+                case 3: // 韩语
+                    languageFile = "Language.ko-KR.ini";
+                    break;
+                default: // 英语或其他
+                    languageFile = "Language.ini";
+                    break;
+            }
+            Settings.LanguageFilePath = Path.Combine(Settings.ConfigPath, languageFile);
         }
 
         private void IPAddressCheck(object sender, EventArgs e)
@@ -348,6 +375,91 @@ namespace Server
         private void ReaddArcDrops_Click(object sender, EventArgs e)
         {
             ProcessFiles(RequiredClass.Archer, false);
+        }
+        #endregion
+        
+        #region Language Settings
+        private void InitializeLanguageComboBox()
+        {
+            // 添加支持的语言
+            LanguageComboBox.Items.Add("English");
+            LanguageComboBox.Items.Add("Chinese");
+            LanguageComboBox.Items.Add("Russian");
+            LanguageComboBox.Items.Add("Korean");
+            
+            // 根据当前语言文件名确定选择的语言
+            string currentLanguageFile = Path.GetFileName(Settings.LanguageFilePath);
+            if (string.IsNullOrEmpty(currentLanguageFile) || currentLanguageFile.Equals("Language.ini", StringComparison.OrdinalIgnoreCase))
+            {
+                LanguageComboBox.SelectedIndex = 0; // 默认英语
+            }
+            else if (currentLanguageFile.Equals("Language.zh-CN.ini", StringComparison.OrdinalIgnoreCase))
+            {
+                LanguageComboBox.SelectedIndex = 1; // 中文
+            }
+            else if (currentLanguageFile.Equals("Language.ru-RU.ini", StringComparison.OrdinalIgnoreCase))
+            {
+                LanguageComboBox.SelectedIndex = 2; // 俄语
+            }
+            else if (currentLanguageFile.Equals("Language.ko-KR.ini", StringComparison.OrdinalIgnoreCase))
+            {
+                LanguageComboBox.SelectedIndex = 3; // 韩语
+            }
+            else
+            {
+                LanguageComboBox.SelectedIndex = 0; // 默认英语
+            }
+            
+            // 添加选择变更事件
+            LanguageComboBox.SelectedIndexChanged += LanguageComboBox_SelectedIndexChanged;
+        }
+        
+        private void LanguageComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string languageFile;
+            
+            switch (LanguageComboBox.SelectedIndex)
+            {
+                case 1: // 中文
+                    languageFile = "Language.zh-CN.ini";
+                    break;
+                case 2: // 俄语
+                    languageFile = "Language.ru-RU.ini";
+                    break;
+                case 3: // 韩语
+                    languageFile = "Language.ko-KR.ini";
+                    break;
+                default: // 英语或其他
+                    languageFile = "Language.ini";
+                    break;
+            }
+            
+            // 更新语言文件路径
+            Settings.LanguageFilePath = Path.Combine(Settings.ConfigPath, languageFile);
+            
+            // 重新加载语言文件
+            GameLanguage.LoadServerLanguage(Settings.LanguageFilePath);
+            
+            // 总是先恢复到原始文本，然后应用新语言
+            UILanguageManager.RestoreOriginalTexts(this);
+            
+            // 如果不是英语，加载并应用UI语言
+            if (LanguageComboBox.SelectedIndex != 0)
+            {
+                UILanguageManager.LoadUILanguage(Settings.LanguageFilePath);
+                UILanguageManager.ApplyUILanguage(this);
+            }
+            
+            // 显示语言已更改的消息
+            string languageName = "English";
+            if (LanguageComboBox.SelectedIndex == 1)
+                languageName = "Chinese";
+            else if (LanguageComboBox.SelectedIndex == 2)
+                languageName = "Russian";
+            else if (LanguageComboBox.SelectedIndex == 3)
+                languageName = "Korean";
+                
+            MessageBox.Show($"Language changed to {languageName}.", "Language Setting", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         #endregion
     }

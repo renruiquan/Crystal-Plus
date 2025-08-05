@@ -1,4 +1,4 @@
-﻿using CustomFormControl;
+using CustomFormControl;
 using Server.Account;
 using Server.Database;
 using Server.MirDatabase;
@@ -7,6 +7,8 @@ using Server.MirForms.Systems;
 using Server.MirObjects;
 using Server.Systems;
 using System.Collections;
+using System.IO;
+using System.Linq;
 
 namespace Server
 {
@@ -417,6 +419,26 @@ namespace Server
             if (loaded)
             {
                 Envir.Start();
+                
+                // 显示当前使用的语言
+                string languageFile = Path.GetFileName(Settings.LanguageFilePath);
+                string languageName = "English";
+                
+                if (languageFile.Equals("Language.zh-CN.ini", StringComparison.OrdinalIgnoreCase))
+                    languageName = "Chinese";
+                else if (languageFile.Equals("Language.ru-RU.ini", StringComparison.OrdinalIgnoreCase))
+                    languageName = "Russian";
+                else if (languageFile.Equals("Language.ko-KR.ini", StringComparison.OrdinalIgnoreCase))
+                    languageName = "Korean";
+                    
+                MessageQueue.Enqueue($"Server started with {languageName} language.");
+                
+                // 如果不是英语，加载并应用UI语言
+                if (!languageFile.Equals("Language.ini", StringComparison.OrdinalIgnoreCase))
+                {
+                    UILanguageManager.LoadUILanguage(Settings.LanguageFilePath);
+                    UILanguageManager.ApplyUILanguage(this);
+                }
             }
 
             AutoResize();

@@ -1,4 +1,4 @@
-﻿using System.Security.Cryptography;
+using System.Security.Cryptography;
 using Server.MirDatabase;
 using Server.MirObjects;
 
@@ -58,6 +58,9 @@ namespace Server
 
         //Network
         public static string IPAddress = "127.0.0.1";
+        
+        // 语言设置
+        public static string LanguageFilePath = Path.Combine(ConfigPath, "Language.ini");
 
         public static ushort Port = 7000,
                              TimeOut = 10000,
@@ -568,7 +571,7 @@ namespace Server
             LoadWorldMap();
             LoadHeroSettings();
 
-            GameLanguage.LoadServerLanguage(Path.Combine(ConfigPath, "Language.ini"));
+            GameLanguage.LoadServerLanguage(LanguageFilePath);
         }
 
         public static void LoadNotice()
