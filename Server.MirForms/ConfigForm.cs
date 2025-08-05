@@ -448,6 +448,35 @@ namespace Server
             {
                 UILanguageManager.LoadUILanguage(Settings.LanguageFilePath);
                 UILanguageManager.ApplyUILanguage(this);
+                
+                // 同时应用翻译到SMain主界面
+                if (Application.OpenForms.Count > 0)
+                {
+                    foreach (Form form in Application.OpenForms)
+                    {
+                        if (form is SMain mainForm)
+                        {
+                            UILanguageManager.RestoreOriginalTexts(mainForm);
+                            UILanguageManager.ApplyUILanguage(mainForm);
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // 如果是英语，也要恢复SMain主界面的原始文本
+                if (Application.OpenForms.Count > 0)
+                {
+                    foreach (Form form in Application.OpenForms)
+                    {
+                        if (form is SMain mainForm)
+                        {
+                            UILanguageManager.RestoreOriginalTexts(mainForm);
+                            break;
+                        }
+                    }
+                }
             }
             
             // 显示语言已更改的消息

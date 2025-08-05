@@ -439,6 +439,11 @@ namespace Server
                     UILanguageManager.LoadUILanguage(Settings.LanguageFilePath);
                     UILanguageManager.ApplyUILanguage(this);
                 }
+                else
+                {
+                    // 如果是英语，确保保存原始文本
+                    UILanguageManager.ApplyUILanguage(this);
+                }
             }
 
             AutoResize();
