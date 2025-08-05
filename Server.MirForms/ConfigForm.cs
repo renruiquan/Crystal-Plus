@@ -440,41 +440,19 @@ namespace Server
             // 重新加载语言文件
             GameLanguage.LoadServerLanguage(Settings.LanguageFilePath);
             
-            // 总是先恢复到原始文本，然后应用新语言
-            UILanguageManager.RestoreOriginalTexts(this);
-            
-            // 如果不是英语，加载并应用UI语言
-            if (LanguageComboBox.SelectedIndex != 0)
+            // 对所有打开的表单应用语言切换
+            if (Application.OpenForms.Count > 0)
             {
-                UILanguageManager.LoadUILanguage(Settings.LanguageFilePath);
-                UILanguageManager.ApplyUILanguage(this);
-                
-                // 同时应用翻译到SMain主界面
-                if (Application.OpenForms.Count > 0)
+                foreach (Form form in Application.OpenForms)
                 {
-                    foreach (Form form in Application.OpenForms)
+                    // 先恢复到原始文本
+                    UILanguageManager.RestoreOriginalTexts(form);
+                    
+                    // 如果不是英语，应用新语言
+                    if (LanguageComboBox.SelectedIndex != 0)
                     {
-                        if (form is SMain mainForm)
-                        {
-                            UILanguageManager.RestoreOriginalTexts(mainForm);
-                            UILanguageManager.ApplyUILanguage(mainForm);
-                            break;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                // 如果是英语，也要恢复SMain主界面的原始文本
-                if (Application.OpenForms.Count > 0)
-                {
-                    foreach (Form form in Application.OpenForms)
-                    {
-                        if (form is SMain mainForm)
-                        {
-                            UILanguageManager.RestoreOriginalTexts(mainForm);
-                            break;
-                        }
+                        UILanguageManager.LoadUILanguage(Settings.LanguageFilePath);
+                        UILanguageManager.ApplyUILanguage(form);
                     }
                 }
             }

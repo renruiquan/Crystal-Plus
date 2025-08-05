@@ -10,6 +10,9 @@ namespace Server.Database
         {
             InitializeComponent();
             LoadMarket();
+            
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
         }
 
         #region Load Market
