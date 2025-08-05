@@ -5,6 +5,8 @@
         public MiningDetailForm()
         {
             InitializeComponent();
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
         }
 
         private void DoneButton_Click(object sender, EventArgs e)

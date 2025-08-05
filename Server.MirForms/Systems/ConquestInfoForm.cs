@@ -19,6 +19,9 @@ namespace Server
         {
             InitializeComponent();
 
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
+
             for (int i = 0; i < Envir.MapInfoList.Count; i++)
             {
                 ConquestMap_combo.Items.Add(Envir.MapInfoList[i]);

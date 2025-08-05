@@ -13,6 +13,9 @@ namespace Server
         {
             InitializeComponent();
 
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
+
             LoadGameShopItems();
 
             GameShopSearchBox_TextChanged(this, EventArgs.Empty);

@@ -16,7 +16,10 @@ namespace Server.MirForms.VisualMapInfo
 
         public VForm()
         {
-            InitializeComponent(); 
+            InitializeComponent();
+
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
         }
 
         private void VForm_Load(object sender, EventArgs e)

@@ -21,6 +21,10 @@ namespace Server.Systems
         public GuildItemForm()
         {
             InitializeComponent();
+
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
+
             this.Load += GuildItemForm_Load;
         }
 
