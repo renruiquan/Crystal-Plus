@@ -36,6 +36,9 @@ namespace Server
             ITypeFilterComboBox.SelectedIndex = ITypeFilterComboBox.Items.Count - 1;
 
             UpdateInterface();
+            
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
         }
 
         public void RefreshUniqueTab()
@@ -296,12 +299,6 @@ namespace Server
             Bind_dontdeathdropcheckbox.Checked = info.Bind.HasFlag(BindMode.DontDeathdrop);
             Bind_dontdropcheckbox.Checked = info.Bind.HasFlag(BindMode.DontDrop);
             Bind_DontSpecialRepaircheckBox.Checked = info.Bind.HasFlag(BindMode.NoSRepair);
-            BindOnEquipcheckbox.Checked = info.Bind.HasFlag(BindMode.BindOnEquip);
-            BreakOnDeathcheckbox.Checked = info.Bind.HasFlag(BindMode.BreakOnDeath);
-            NoWeddingRingcheckbox.Checked = info.Bind.HasFlag(BindMode.NoWeddingRing);
-            unableToRent_CheckBox.Checked = info.Bind.HasFlag(BindMode.UnableToRent);
-            unableToDisassemble_CheckBox.Checked = info.Bind.HasFlag(BindMode.UnableToDisassemble);
-            noMailBox.Checked = info.Bind.HasFlag(BindMode.NoMail);
 
             NeedIdentifycheckbox.Checked = info.NeedIdentify;
             ShowGroupPickupcheckbox.Checked = info.ShowGroupPickup;

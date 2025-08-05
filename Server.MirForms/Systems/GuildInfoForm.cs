@@ -28,6 +28,9 @@ namespace Server
             for (int i = 0; i < Settings.Guild_BuffList.Count; i++)
                 BuffList.Items.Add(Settings.Guild_BuffList[i]);
             UpdateGuildInterface();
+            
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
         }
 
         private void GuildInfoForm_FormClosed(object sender, FormClosedEventArgs e)

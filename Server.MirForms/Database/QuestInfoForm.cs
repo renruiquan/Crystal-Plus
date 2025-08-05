@@ -22,6 +22,9 @@ namespace Server
             QuestSearchBox_TextChanged(this, EventArgs.Empty);
 
             UpdateInterface();
+            
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
         }
 
         private void AddButton_Click(object sender, EventArgs e)

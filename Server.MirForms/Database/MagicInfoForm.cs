@@ -15,6 +15,9 @@ namespace Server
             InitializeComponent();
             MagicSearchBox_TextChanged(this, EventArgs.Empty);
             UpdateMagicForm();
+            
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
         }
 
         private void UpdateMagicForm(byte field = 0)

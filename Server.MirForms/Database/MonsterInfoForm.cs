@@ -17,6 +17,9 @@ namespace Server
 
             ImageComboBox.Items.AddRange(Enum.GetValues(typeof(Monster)).Cast<object>().ToArray());
             UpdateInterface();
+            
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
         }
 
         private void AddButton_Click(object sender, EventArgs e)

@@ -34,6 +34,9 @@ namespace Server
 
             this.CapType.ValueType = typeof(Stat);
             this.CapType.DataSource = Enum.GetValues(typeof(Stat));
+            
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
         }
 
         private void BalanceConfigForm_FormClosed(object sender, FormClosedEventArgs e)
