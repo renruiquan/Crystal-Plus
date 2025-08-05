@@ -17,6 +17,9 @@ namespace Server.Database
         {
             InitializeComponent();
 
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
+
             SetDoubleBuffered(monsterInfoGridView);
 
             InitializeItemInfoGridView();

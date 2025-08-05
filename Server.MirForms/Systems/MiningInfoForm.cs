@@ -13,6 +13,9 @@ namespace Server
         {
             InitializeComponent();
 
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
+
             int i = 0;
 
             Settings.MineSetList.ForEach(x => { mineIndexItems.Add(x.Name); i++; });

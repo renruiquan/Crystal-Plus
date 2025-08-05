@@ -13,6 +13,10 @@ namespace Server.Database
         public RecipeInfoForm()
         {
             InitializeComponent();
+
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
+
             this.Load += RecipeInfoForm_Load;
             SaveButton.Click += SaveButton_Click;
         }

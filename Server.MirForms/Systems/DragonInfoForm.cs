@@ -10,6 +10,9 @@ namespace Server
         public DragonInfoForm()
         {
             InitializeComponent();
+
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
         }
 
         private void UpdateInterface()

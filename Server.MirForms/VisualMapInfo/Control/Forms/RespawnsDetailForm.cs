@@ -5,6 +5,9 @@
         public RespawnsDetailForm()
         {
             InitializeComponent();
+
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
         }
 
         private void Chk(object sender, KeyPressEventArgs e)

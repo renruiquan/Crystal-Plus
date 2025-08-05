@@ -11,7 +11,10 @@ namespace Server.MirForms.Systems
         public MonsterTunerForm()
         {
             InitializeComponent();
-            
+
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
+
             for (int i = 0; i < Envir.MonsterInfoList.Count; i++)
             {
                 SelectMonsterComboBox.Items.Add(Envir.MonsterInfoList[i]);

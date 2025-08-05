@@ -12,6 +12,9 @@ namespace Server
         public SystemInfoForm()
         {
             InitializeComponent();
+
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
         }
 
         public SystemInfoForm(int selectedTab = 0)

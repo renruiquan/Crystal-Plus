@@ -22,6 +22,8 @@ namespace Server.Database
         public ItemInfoFormNew()
         {
             InitializeComponent();
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
 
             SetDoubleBuffered(itemInfoGridView);
 
