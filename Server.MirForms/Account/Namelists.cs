@@ -16,6 +16,9 @@ namespace Server.Account
         {
             InitializeComponent();
             UpdateNamelists();
+            
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
         }
 
         #region Update Name List

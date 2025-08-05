@@ -7,6 +7,9 @@
             InitializeComponent();
 
             PasswordTextBox.MaxLength = Globals.MaxPasswordLength;
+            
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
         }
     }
 }

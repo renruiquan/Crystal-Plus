@@ -16,6 +16,9 @@ namespace Server
             InitializeComponent();
 
             Setup();
+            
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
         }
 
         public AccountInfoForm(string accountId, bool match = false)
@@ -26,6 +29,9 @@ namespace Server
             MatchFilterCheckBox.Checked = match;
 
             Setup();
+            
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
         }
 
         private void Setup()

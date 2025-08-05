@@ -14,6 +14,9 @@ namespace Server
         public PlayerInfoForm()
         {
             InitializeComponent();
+            
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
         }
 
         public PlayerInfoForm(uint playerId)
@@ -31,6 +34,9 @@ namespace Server
             Character = SMain.Envir.GetCharacterInfo(player.Name);
 
             UpdateTabs();
+            
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
         }
 
         #region PlayerInfo

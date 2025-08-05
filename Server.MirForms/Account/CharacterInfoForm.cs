@@ -25,6 +25,9 @@ namespace Server.Account
         {
             InitializeComponent();
             LoadCharacters();
+            
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
         }
 
         #region Load Characters

@@ -38,6 +38,9 @@ namespace Server
             lstParticles.Items.AddRange(Enum.GetValues(typeof(WeatherSetting)).Cast<object>().ToArray());
 
             UpdateInterface(true);
+            
+            // 应用UI语言
+            UILanguageManager.ApplyUILanguage(this);
         }
         private void MapInfoForm_FormClosed(object sender, FormClosedEventArgs e)
         {
