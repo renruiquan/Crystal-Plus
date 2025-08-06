@@ -154,7 +154,14 @@ namespace Server.MirForms.DropBuilder
             }
 
             tabControlSeperateItems_SelectedIndexChanged(tabControlSeperateItems, null);
-            listBoxMonsters.SelectedIndex = 0;
+            if (listBoxMonsters?.Items.Count > 0)
+            {
+                listBoxMonsters.SelectedIndex = 0; 
+            }
+            else
+            {
+                listBoxMonsters.SelectedIndex = -1;
+            }
             labelMonsterList.Text = $"Monster Count: {Envir.MonsterInfoList.Count}";
         }
 
