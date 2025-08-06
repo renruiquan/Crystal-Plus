@@ -68,6 +68,21 @@ namespace Server
             ApplyUILanguageRecursive(form);
         }
 
+        public static void ApplyAllUILanguage()
+        {
+            // 对所有打开的表单应用语言切换
+            if (Application.OpenForms.Count > 0)
+            {
+                foreach (Form form in Application.OpenForms)
+                {
+                    // 先恢复到原始文本
+                    UILanguageManager.RestoreOriginalTexts(form);
+                    UILanguageManager.LoadUILanguage(Settings.LanguageFilePath);
+                    UILanguageManager.ApplyUILanguage(form);
+                }
+            }
+        }
+
         private static void ApplyUILanguageRecursive(Control control)
         {
             // 处理当前控件

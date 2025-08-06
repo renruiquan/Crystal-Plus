@@ -419,20 +419,20 @@ namespace Server
             if (loaded)
             {
                 Envir.Start();
-                
+
                 // 显示当前使用的语言
                 string languageFile = Path.GetFileName(Settings.LanguageFilePath);
                 string languageName = "English";
-                
+
                 if (languageFile.Equals("Language.zh-CN.ini", StringComparison.OrdinalIgnoreCase))
                     languageName = "Chinese";
                 else if (languageFile.Equals("Language.ru-RU.ini", StringComparison.OrdinalIgnoreCase))
                     languageName = "Russian";
                 else if (languageFile.Equals("Language.ko-KR.ini", StringComparison.OrdinalIgnoreCase))
                     languageName = "Korean";
-                    
+
                 MessageQueue.Enqueue($"Server started with {languageName} language.");
-                
+
                 // 如果不是英语，加载并应用UI语言
                 if (!languageFile.Equals("Language.ini", StringComparison.OrdinalIgnoreCase))
                 {
@@ -692,6 +692,69 @@ namespace Server
             PlayersOnlineListView.ListViewItemSorter = new ListViewItemComparer(sortColumn, PlayersOnlineListView.Sorting);
 
             PlayersOnlineListView.Sort();
+        }
+
+        private void changeToolStripMenuItem(object sender, EventArgs e)
+        {
+            // 获取当前点击的菜单项
+            ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
+
+            // 获取父项（通常是包含这一组菜单项的父菜单）
+            ToolStripMenuItem parentItem = clickedItem.OwnerItem as ToolStripMenuItem;
+
+            // 如果父项存在，遍历所有同级菜单项
+            if (parentItem != null)
+            {
+                foreach (ToolStripItem item in parentItem.DropDownItems)
+                {
+                    if (item is ToolStripMenuItem menuItem)
+                    {
+                        // 将所有同级菜单项的 Checked 设为 false
+                        menuItem.Checked = false;
+                    }
+                }
+            }
+        }
+
+
+        private void englishToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            changeToolStripMenuItem(sender, e);
+            englishToolStripMenuItem.Checked = true;
+            Settings.LanguageFilePath = Path.Combine(Settings.ConfigPath, @"Language.ini");
+            UILanguageManager.ApplyAllUILanguage();
+        }
+
+        private void chineseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            changeToolStripMenuItem(sender, e);
+            chineseToolStripMenuItem.Checked = true;
+            Settings.LanguageFilePath = Path.Combine(Settings.ConfigPath, @"Language.zh-CN.ini");
+            UILanguageManager.ApplyAllUILanguage();
+        }
+
+        private void russianToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            changeToolStripMenuItem(sender, e);
+            russianToolStripMenuItem.Checked = true;
+            Settings.LanguageFilePath = Path.Combine(Settings.ConfigPath, @"Language.ru-RU.ini");
+            UILanguageManager.ApplyAllUILanguage();
+        }
+
+        private void japaneseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            changeToolStripMenuItem(sender, e);
+            japaneseToolStripMenuItem.Checked = true;
+            Settings.LanguageFilePath = Path.Combine(Settings.ConfigPath, @"Language.ja-JP.ini");
+            UILanguageManager.ApplyAllUILanguage();
+        }
+
+        private void koreanToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            changeToolStripMenuItem(sender, e);
+            koreanToolStripMenuItem.Checked = true;
+            Settings.LanguageFilePath = Path.Combine(Settings.ConfigPath, @"Language.ko-KR.ini");
+            UILanguageManager.ApplyAllUILanguage();
         }
     }
 }
