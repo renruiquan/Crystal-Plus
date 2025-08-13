@@ -1,4 +1,4 @@
-﻿public enum MouseCursor : byte
+public enum MouseCursor : byte
 {
     None,
     Default,
@@ -1689,7 +1689,7 @@ public enum ServerPacketIds : short
     ExpireTimer,
     UpdateNotice,
     Roll,
-    SetCompass,
+    SetCompass, RefreshStats,
     GroupMembersMap,
     SendMemberLocation,
     GuildTerritoryPage,

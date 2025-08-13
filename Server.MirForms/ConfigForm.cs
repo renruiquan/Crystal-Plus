@@ -2,6 +2,7 @@ using Server.MirEnvir;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Linq;
+using S = ServerPackets;
 
 namespace Server
 {
@@ -14,7 +15,7 @@ namespace Server
             VPathTextBox.Text = Settings.VersionPath;
             VersionCheckBox.Checked = Settings.CheckVersion;
             RelogDelayTextBox.Text = Settings.RelogDelay.ToString();
-           
+
             IPAddressTextBox.Text = Settings.IPAddress;
             PortTextBox.Text = Settings.Port.ToString();
             TimeOutTextBox.Text = Settings.TimeOut.ToString();
@@ -51,7 +52,11 @@ namespace Server
             tbRestedBuffLength.Text = Settings.RestedBuffLength.ToString();
             tbRestedExpBonus.Text = Settings.RestedExpBonus.ToString();
             tbMaxRestedBonus.Text = Settings.RestedMaxBonus.ToString();
-            
+
+            // 加载速度率配置
+            attackSpeedRateInput.Value = Math.Round((decimal)Settings.AttackSpeedRate, 2);
+            moveSpeedRateInput.Value = Math.Round((decimal)Settings.MoveSpeedRate, 2);
+
             // 加载并应用UI语言
             UILanguageManager.LoadUILanguage(Settings.LanguageFilePath);
             UILanguageManager.ApplyUILanguage(this);
@@ -129,6 +134,10 @@ namespace Server
             Settings.RestedBuffLength = Convert.ToInt32(tbRestedBuffLength.Text);
             Settings.RestedExpBonus = Convert.ToInt32(tbRestedExpBonus.Text);
             Settings.RestedMaxBonus = Convert.ToInt32(tbMaxRestedBonus.Text);
+
+            // 保存速度率配置
+            Settings.AttackSpeedRate = (float)attackSpeedRateInput.Value;
+            Settings.MoveSpeedRate = (float)moveSpeedRateInput.Value;
         }
 
         private void IPAddressCheck(object sender, EventArgs e)
@@ -355,5 +364,48 @@ namespace Server
             ProcessFiles(RequiredClass.Archer, false);
         }
         #endregion
+        private void moveSpeedRateInput_ValueChanged(object sender, EventArgs e)
+        {
+            // 保存当前移动速度率到Settings
+            Settings.MoveSpeedRate = (float)moveSpeedRateInput.Value;
+            
+            // 通知所有在线玩家更新移动速度
+            if (SMain.EditEnvir != null)
+            {
+                foreach (var player in SMain.EditEnvir.Players)
+                {
+                    if (player != null && player.Connection != null && player.Connection.Connected)
+                    {
+                        // 刷新玩家状态以应用新的移动速度率
+                        player.RefreshStats();
+                        
+                        // 发送更新后的状态信息给客户端
+                        player.Enqueue(new S.RefreshStats { Stats = player.Stats });
+                    }
+                }
+            }
+        }
+
+        private void attackSpeedRateInput_ValueChanged(object sender, EventArgs e)
+        {
+            // 保存当前攻击速度率到Settings
+            Settings.AttackSpeedRate = (float)attackSpeedRateInput.Value;
+            
+            // 通知所有在线玩家更新攻击速度
+            if (SMain.EditEnvir != null)
+            {
+                foreach (var player in SMain.EditEnvir.Players)
+                {
+                    if (player != null && player.Connection != null && player.Connection.Connected)
+                    {
+                        // 刷新玩家状态以应用新的攻击速度率
+                        player.RefreshStats();
+                        
+                        // 发送更新后的状态信息给客户端
+                        player.Enqueue(new S.RefreshStats { Stats = player.Stats });
+                    }
+                }
+            }
+        }
     }
 }

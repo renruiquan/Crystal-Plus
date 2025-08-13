@@ -124,6 +124,10 @@ namespace Server
                           RestedMaxBonus = 24,
                           NewbieGuildMaxSize = 1000;
 
+        //Speed Rates
+        public static float AttackSpeedRate = 1.0F,
+                           MoveSpeedRate = 1.0F;
+
         public static string NewbieGuild = "NewbieGuild",
                              SkeletonName = "BoneFamiliar",
                              ShinsuName = "Shinsu",
@@ -458,6 +462,10 @@ namespace Server
             RestedExpBonus = Reader.ReadInt32("Rested", "ExpBonus", RestedExpBonus);
             RestedMaxBonus = Reader.ReadInt32("Rested", "MaxBonus", RestedMaxBonus);
 
+            //Speed Rates
+            AttackSpeedRate = Reader.ReadSingle("SpeedRates", "AttackSpeedRate", AttackSpeedRate);
+            MoveSpeedRate = Reader.ReadSingle("SpeedRates", "MoveSpeedRate", MoveSpeedRate);
+
             //Items
             HealRing = Reader.ReadString("Items", "HealRing", HealRing);
             FireRing = Reader.ReadString("Items", "FireRing", FireRing);
@@ -720,6 +728,10 @@ namespace Server
             Reader.Write("Rested", "BuffLength", RestedBuffLength);
             Reader.Write("Rested", "ExpBonus", RestedExpBonus);
             Reader.Write("Rested", "MaxBonus", RestedMaxBonus);
+
+            //Speed Rates
+            Reader.Write("SpeedRates", "AttackSpeedRate", AttackSpeedRate);
+            Reader.Write("SpeedRates", "MoveSpeedRate", MoveSpeedRate);
 
             Reader.Write("Items", "HealRing", HealRing);
             Reader.Write("Items", "FireRing", FireRing);

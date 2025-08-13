@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 
 namespace ServerPackets
@@ -6703,6 +6703,23 @@ namespace ServerPackets
         {
             writer.Write(Location.X);
             writer.Write(Location.Y);
+        }
+    }
+
+    public sealed class RefreshStats : Packet
+    {
+        public override short Index { get { return (short)ServerPacketIds.RefreshStats; } }
+
+        public Stats Stats;
+
+        protected override void ReadPacket(BinaryReader reader)
+        {
+            Stats = new Stats(reader);
+        }
+
+        protected override void WritePacket(BinaryWriter writer)
+        {
+            Stats.Save(writer);
         }
     }
 }

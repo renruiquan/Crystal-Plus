@@ -165,6 +165,12 @@ namespace Client.MirObjects
 
             if (this == User && Light < 3) Light = 3;
             AttackSpeed = 1400 - ((Stats[Stat.AttackSpeed] * 60) + Math.Min(370, (Level * 14)));
+            
+            // 应用全局攻击速度率配置（这里使用一个固定的值，实际应该从服务器获取）
+            // 注意：这个值应该与服务器端的Settings.AttackSpeedRate保持一致
+            float globalAttackSpeedRate = 1.0f; // 默认值，实际应该从服务器获取
+            AttackSpeed = (int)(AttackSpeed / globalAttackSpeedRate);
+            
             if (AttackSpeed < 550) AttackSpeed = 550;
 
             PercentHealth = (byte)(HP / (float)Stats[Stat.HP] * 100);

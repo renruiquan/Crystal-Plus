@@ -1680,6 +1680,9 @@ namespace Client.MirScenes
                 case (short)ServerPacketIds.BaseStatsInfo:
                     BaseStatsInfo((S.BaseStatsInfo)p);
                     break;
+                case (short)ServerPacketIds.RefreshStats:
+                    RefreshStats((S.RefreshStats)p);
+                    break;
                 case (short)ServerPacketIds.HeroBaseStatsInfo:
                     HeroBaseStatsInfo((S.HeroBaseStatsInfo)p);
                     break;
@@ -2905,9 +2908,8 @@ namespace Client.MirScenes
 
         private void TransformUpdate(S.TransformUpdate p)
         {
-            if (MapControl.Objects.TryGetValue(p.ObjectID, out MapObject ob))
-                if (ob is PlayerObject player)
-                    player.TransformType = p.TransformType;
+            if (MapControl.Objects.TryGetValue(p.ObjectID, out MapObject ob) && ob is PlayerObject player)
+                player.TransformType = p.TransformType;
         }
 
         private void FishingUpdate(S.FishingUpdate p)
@@ -5577,6 +5579,13 @@ namespace Client.MirScenes
         private void BaseStatsInfo(S.BaseStatsInfo p)
         {
             User.CoreStats = p.Stats;
+            User.RefreshStats();
+        }
+
+        private void RefreshStats(S.RefreshStats p)
+        {
+            // 更新用户的Stats
+            User.Stats = p.Stats;
             User.RefreshStats();
         }
 

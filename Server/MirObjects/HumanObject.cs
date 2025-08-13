@@ -845,8 +845,7 @@ namespace Server.MirObjects
         {
             RefreshStats();
             SetHP(Stats[Stat.HP]);
-            SetMP(Stats[Stat.MP]);
-            
+            SetMP(Stats[Stat.MP]);          
             Broadcast(new S.ObjectLeveled { ObjectID = ObjectID });          
         }
         public virtual Color GetNameColour(HumanObject human)
@@ -981,8 +980,7 @@ namespace Server.MirObjects
                 Enqueue(new S.RefreshItem { Item = item });
 
                 message = GameLanguage.WeaponCurse;
-                chatType = ChatType.System;
-                
+                chatType = ChatType.System;                
             }
             else if (item.AddedStats[Stat.Luck] <= 0 || Envir.Random.Next(10 * item.GetTotal(Stat.Luck)) == 0)
             {
@@ -1763,6 +1761,9 @@ namespace Server.MirObjects
             if (MP > Stats[Stat.MP]) SetMP(Stats[Stat.MP]);
 
             AttackSpeed = 1400 - ((Stats[Stat.AttackSpeed] * 60) + Math.Min(370, (Level * 14)));
+
+            // 应用全局攻击速度率配置
+            AttackSpeed = (int)(AttackSpeed / Settings.AttackSpeedRate);
 
             if (AttackSpeed < 550) AttackSpeed = 550;
         }
@@ -7938,7 +7939,7 @@ namespace Server.MirObjects
                     }
 
                     //Right Block
-                    for (int a = -Globals.DataRange + count; a <= Globals.DataRange; a++)
+                    for (int a = -Globals.DataRange; a <= Globals.DataRange - count; a++)
                     {
                         int y = CurrentLocation.Y + a;
                         if (y < 0 || y >= CurrentMap.Height) continue;

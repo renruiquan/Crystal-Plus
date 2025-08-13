@@ -82,6 +82,13 @@
             SaveDelayTextBox = new TextBox();
             label6 = new Label();
             tabPage6 = new TabPage();
+            gbSpeedRate = new GroupBox();
+            label26 = new Label();
+            moveSpeedRateInput = new NumericUpDown();
+            lblMoveSpeedRate = new Label();
+            label25 = new Label();
+            attackSpeedRateInput = new NumericUpDown();
+            lblAttackSpeedRate = new Label();
             gbRestedExpRates = new GroupBox();
             label22 = new Label();
             label23 = new Label();
@@ -118,6 +125,9 @@
             tabPage3.SuspendLayout();
             tabPage4.SuspendLayout();
             tabPage6.SuspendLayout();
+            gbSpeedRate.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)moveSpeedRateInput).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)attackSpeedRateInput).BeginInit();
             gbRestedExpRates.SuspendLayout();
             gbGlobals.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dropRateInput).BeginInit();
@@ -714,6 +724,7 @@
             // 
             // tabPage6
             // 
+            tabPage6.Controls.Add(gbSpeedRate);
             tabPage6.Controls.Add(gbRestedExpRates);
             tabPage6.Controls.Add(gbGlobals);
             tabPage6.Location = new Point(4, 26);
@@ -724,6 +735,79 @@
             tabPage6.TabIndex = 5;
             tabPage6.Text = "Rates";
             tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // gbSpeedRate
+            // 
+            gbSpeedRate.Controls.Add(label26);
+            gbSpeedRate.Controls.Add(moveSpeedRateInput);
+            gbSpeedRate.Controls.Add(lblMoveSpeedRate);
+            gbSpeedRate.Controls.Add(label25);
+            gbSpeedRate.Controls.Add(attackSpeedRateInput);
+            gbSpeedRate.Controls.Add(lblAttackSpeedRate);
+            gbSpeedRate.Location = new Point(260, 21);
+            gbSpeedRate.Name = "gbSpeedRate";
+            gbSpeedRate.Size = new Size(200, 114);
+            gbSpeedRate.TabIndex = 9;
+            gbSpeedRate.TabStop = false;
+            gbSpeedRate.Text = "Speed Rate";
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.Location = new Point(164, 74);
+            label26.Name = "label26";
+            label26.Size = new Size(14, 17);
+            label26.TabIndex = 16;
+            label26.Text = "x";
+            // 
+            // moveSpeedRateInput
+            // 
+            moveSpeedRateInput.DecimalPlaces = 2;
+            moveSpeedRateInput.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
+            moveSpeedRateInput.Location = new Point(107, 71);
+            moveSpeedRateInput.Margin = new Padding(3, 4, 3, 4);
+            moveSpeedRateInput.Name = "moveSpeedRateInput";
+            moveSpeedRateInput.Size = new Size(51, 23);
+            moveSpeedRateInput.TabIndex = 15;
+            moveSpeedRateInput.ValueChanged += moveSpeedRateInput_ValueChanged;
+            // 
+            // lblMoveSpeedRate
+            // 
+            lblMoveSpeedRate.AutoSize = true;
+            lblMoveSpeedRate.Location = new Point(16, 74);
+            lblMoveSpeedRate.Name = "lblMoveSpeedRate";
+            lblMoveSpeedRate.Size = new Size(93, 17);
+            lblMoveSpeedRate.TabIndex = 14;
+            lblMoveSpeedRate.Text = "Move speed：";
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Location = new Point(164, 27);
+            label25.Name = "label25";
+            label25.Size = new Size(14, 17);
+            label25.TabIndex = 13;
+            label25.Text = "x";
+            // 
+            // attackSpeedRateInput
+            // 
+            attackSpeedRateInput.DecimalPlaces = 2;
+            attackSpeedRateInput.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
+            attackSpeedRateInput.Location = new Point(107, 23);
+            attackSpeedRateInput.Margin = new Padding(3, 4, 3, 4);
+            attackSpeedRateInput.Name = "attackSpeedRateInput";
+            attackSpeedRateInput.Size = new Size(51, 23);
+            attackSpeedRateInput.TabIndex = 13;
+            attackSpeedRateInput.ValueChanged += attackSpeedRateInput_ValueChanged;
+            // 
+            // lblAttackSpeedRate
+            // 
+            lblAttackSpeedRate.AutoSize = true;
+            lblAttackSpeedRate.Location = new Point(16, 26);
+            lblAttackSpeedRate.Name = "lblAttackSpeedRate";
+            lblAttackSpeedRate.Size = new Size(96, 17);
+            lblAttackSpeedRate.TabIndex = 13;
+            lblAttackSpeedRate.Text = "Attack speed：";
             // 
             // gbRestedExpRates
             // 
@@ -1039,6 +1123,10 @@
             tabPage4.ResumeLayout(false);
             tabPage4.PerformLayout();
             tabPage6.ResumeLayout(false);
+            gbSpeedRate.ResumeLayout(false);
+            gbSpeedRate.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)moveSpeedRateInput).EndInit();
+            ((System.ComponentModel.ISupportInitialize)attackSpeedRateInput).EndInit();
             gbRestedExpRates.ResumeLayout(false);
             gbRestedExpRates.PerformLayout();
             gbGlobals.ResumeLayout(false);
@@ -1134,5 +1222,12 @@
         private Button RemoveArcDrops;
         private Button RemoveSinDrops;
         private CheckBox ObserveCheckBox;
+        private GroupBox gbSpeedRate;
+        private Label label25;
+        private NumericUpDown attackSpeedRateInput;
+        private Label lblAttackSpeedRate;
+        private Label label26;
+        private NumericUpDown moveSpeedRateInput;
+        private Label lblMoveSpeedRate;
     }
 }
